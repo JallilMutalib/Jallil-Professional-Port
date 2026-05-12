@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Jallil Mutalib | Virtual Assistant & AI Automation</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#060b14;--bg2:#0d1527;--bg3:#111d35;
+  --accent:#3b82f6;--accent2:#6366f1;--accent3:#06b6d4;
+  --gold:#c9a84c;--gold2:#f0c96a;
+  --text:#f1f5f9;--text2:#94a3b8;--text3:#64748b;
+  --border:#1e2d4a;--card:#0d1527;
+  --grad:linear-gradient(135deg,#3b82f6,#6366f1);
+  --grad-gold:linear-gradient(135deg,#c9a84c,#f0c96a);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
+
+/* ANIMATIONS */
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes spin-ring{to{filter:hue-rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideInRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+@keyframes countUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes typing{from{width:0}to{width:100%}}
+
+.animate-on-scroll{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.animate-on-scroll.visible{opacity:1;transform:translateY(0)}
+.delay-1{transition-delay:.1s}
+.delay-2{transition-delay:.2s}
+.delay-3{transition-delay:.3s}
+.delay-4{transition-delay:.4s}
+.delay-5{transition-delay:.5s}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(6,11,20,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 5%;transition:all .3s}
+nav.scrolled{background:rgba(6,11,20,.98);box-shadow:0 4px 30px rgba(0,0,0,.5)}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-size:1.15rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.02em}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:.85rem;letter-spacing:.03em;transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--grad);border-radius:2px;transition:width .25s}
+.nav-links a:hover{color:var(--text)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{background:var(--grad);color:#fff;border:none;padding:.5rem 1.3rem;border-radius:8px;font-size:.85rem;cursor:pointer;font-weight:700;text-decoration:none;letter-spacing:.02em;transition:opacity .2s,transform .15s,box-shadow .2s;box-shadow:0 4px 15px rgba(59,130,246,.3)}
+.nav-cta:hover{opacity:.9;transform:translateY(-1px);box-shadow:0 6px 20px rgba(59,130,246,.45)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:80px 5% 60px;position:relative;overflow:hidden}
+.hero-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.particle{position:absolute;border-radius:50%;animation:float linear infinite}
+.hero::before{content:'';position:absolute;top:-200px;right:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(59,130,246,.1) 0%,transparent 70%);pointer-events:none;animation:pulse 6s infinite}
+.hero::after{content:'';position:absolute;bottom:-200px;left:-100px;width:600px;height:600px;background:radial-gradient(circle,rgba(99,102,241,.08) 0%,transparent 70%);pointer-events:none}
+.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;width:100%}
+.hero-badge{display:inline-flex;align-items:center;gap:.6rem;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);color:var(--accent);padding:.4rem 1.1rem;border-radius:100px;font-size:.78rem;font-weight:700;letter-spacing:.07em;margin-bottom:1.5rem;text-transform:uppercase;animation:fadeIn 1s ease .3s both}
+.hero-badge .dot{width:7px;height:7px;border-radius:50%;background:#22c55e;animation:pulse 2s infinite}
+.hero h1{font-size:clamp(2rem,4vw,3.4rem);font-weight:800;line-height:1.12;margin-bottom:1rem;letter-spacing:-.03em;animation:slideInLeft 1s ease .4s both}
+.hero h1 .name{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-role{color:var(--text2);font-size:1rem;margin-bottom:.5rem;font-weight:500;letter-spacing:.02em;animation:slideInLeft 1s ease .5s both}
+.hero-sub{color:var(--text3);font-size:.9rem;margin-bottom:2rem;line-height:1.7;animation:slideInLeft 1s ease .6s both;max-width:500px}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:slideInLeft 1s ease .7s both}
+.btn-primary{background:var(--grad);color:#fff;border:none;padding:.8rem 1.8rem;border-radius:10px;font-size:.9rem;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:all .2s;box-shadow:0 4px 20px rgba(59,130,246,.35);letter-spacing:.02em}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(59,130,246,.5)}
+.btn-outline{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,.12);padding:.8rem 1.8rem;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:all .2s;backdrop-filter:blur(4px)}
+.btn-outline:hover{border-color:rgba(59,130,246,.5);background:rgba(59,130,246,.07);transform:translateY(-2px)}
+.hero-visual{display:flex;justify-content:center;align-items:center;animation:slideInRight 1s ease .5s both}
+.photo-wrapper{position:relative;width:300px;height:300px}
+.photo-ring{width:300px;height:300px;border-radius:24px;background:linear-gradient(135deg,#3b82f6,#6366f1,#06b6d4,#3b82f6);padding:3px;animation:spin-ring 6s linear infinite;border-radius:28px}
+.photo-inner{width:100%;height:100%;border-radius:26px;overflow:hidden;background:var(--bg2)}
+.photo-inner img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:brightness(1.05) contrast(1.05)}
+.photo-badge{position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);background:var(--bg2);border:1px solid var(--border);border-radius:100px;padding:.5rem 1.25rem;font-size:.75rem;font-weight:700;color:var(--accent);white-space:nowrap;letter-spacing:.06em;text-transform:uppercase;backdrop-filter:blur(8px)}
+.float-tag{position:absolute;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:.5rem .85rem;font-size:.72rem;font-weight:600;color:var(--text);display:flex;align-items:center;gap:.4rem;backdrop-filter:blur(8px);animation:float 4s ease-in-out infinite;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.float-tag.t1{top:-10px;right:-20px;animation-delay:0s}
+.float-tag.t2{bottom:40px;left:-30px;animation-delay:1.5s}
+.float-tag .dot2{width:6px;height:6px;border-radius:50%;background:#22c55e}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem;animation:fadeUp 1s ease .9s both}
+.stat-item{text-align:center;padding:1.1rem 1rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;transition:border-color .2s,transform .2s}
+.stat-item:hover{border-color:rgba(59,130,246,.35);transform:translateY(-2px)}
+.stat-num{font-size:1.6rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-label{font-size:.72rem;color:var(--text3);margin-top:.25rem;text-transform:uppercase;letter-spacing:.05em}
+
+/* SECTIONS */
+section{padding:90px 5%}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.18);color:var(--accent);padding:.3rem 1rem;border-radius:100px;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.section-title{font-size:clamp(1.8rem,3vw,2.5rem);font-weight:800;margin-bottom:.75rem;letter-spacing:-.03em;line-height:1.15}
+.section-sub{color:var(--text2);font-size:.95rem;max-width:580px;line-height:1.75;margin-bottom:3.5rem}
+
+/* ABOUT */
+#about{background:var(--bg2)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.about-text p{color:var(--text2);line-height:1.85;margin-bottom:1rem;font-size:.95rem}
+.about-highlights{display:flex;flex-direction:column;gap:.9rem}
+.highlight-card{background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:1.25rem 1.5rem;display:flex;align-items:flex-start;gap:1rem;transition:all .3s;cursor:default}
+.highlight-card:hover{border-color:rgba(59,130,246,.45);transform:translateX(4px);background:rgba(59,130,246,.04)}
+.highlight-icon{width:42px;height:42px;border-radius:10px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.15);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.highlight-card h4{font-size:.88rem;font-weight:700;margin-bottom:.3rem;color:var(--text)}
+.highlight-card p{font-size:.8rem;color:var(--text2);line-height:1.55}
+
+/* WHY ME */
+#whyme{background:var(--bg)}
+.whyme-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.whyme-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:2rem;position:relative;overflow:hidden;transition:all .3s}
+.whyme-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--grad-gold);border-radius:0 2px 2px 0;transition:height .4s}
+.whyme-card:hover::before{height:100%}
+.whyme-card:hover{border-color:rgba(201,168,76,.25);transform:translateY(-3px);background:rgba(201,168,76,.03)}
+.whyme-num{font-size:2.5rem;font-weight:900;color:rgba(201,168,76,.15);line-height:1;margin-bottom:.75rem;font-family:Georgia,serif}
+.whyme-card h3{font-size:1rem;font-weight:700;margin-bottom:.35rem;color:var(--gold);text-transform:uppercase;letter-spacing:.06em}
+.whyme-card h4{font-size:.82rem;font-weight:600;color:var(--text2);text-decoration:underline;margin-bottom:.6rem}
+.whyme-card p{font-size:.83rem;color:var(--text2);line-height:1.7}
+
+/* PROCESS */
+#process{background:var(--bg2)}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;position:relative}
+.process-grid::before{content:'';position:absolute;top:36px;left:12%;right:12%;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);pointer-events:none}
+.process-card{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:1.75rem 1.5rem;text-align:center;transition:all .3s;position:relative}
+.process-card:hover{border-color:rgba(59,130,246,.4);transform:translateY(-4px)}
+.process-num{width:52px;height:52px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:#fff;margin:0 auto 1.2rem;box-shadow:0 4px 20px rgba(59,130,246,.3)}
+.process-card h3{font-size:.95rem;font-weight:700;margin-bottom:.75rem;color:var(--text)}
+.process-card p{font-size:.78rem;color:var(--text2);line-height:1.65;text-align:left}
+
+/* SKILLS */
+#skills{background:var(--bg)}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.5rem}
+.skill-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:1.75rem;transition:all .3s;position:relative;overflow:hidden}
+.skill-card::after{content:'';position:absolute;inset:0;background:var(--grad);opacity:0;transition:opacity .3s;pointer-events:none}
+.skill-card:hover{border-color:rgba(59,130,246,.5);transform:translateY(-3px)}
+.skill-card:hover .skill-card-icon{transform:scale(1.1)}
+.skill-card-icon{font-size:1.6rem;margin-bottom:1rem;display:inline-block;transition:transform .3s}
+.skill-card h3{font-size:.95rem;font-weight:700;margin-bottom:1rem;color:var(--text)}
+.skill-tags{display:flex;flex-wrap:wrap;gap:.5rem}
+.skill-tag{background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.18);color:var(--accent);padding:.3rem .8rem;border-radius:100px;font-size:.72rem;font-weight:600;transition:all .2s}
+.skill-tag:hover{background:rgba(59,130,246,.18);border-color:rgba(59,130,246,.4)}
+
+/* SERVICES */
+#services{background:var(--bg2)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.service-card{background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:2.25rem;position:relative;overflow:hidden;transition:all .35s;cursor:default}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
+.service-card:hover::before{transform:scaleX(1)}
+.service-card:hover{border-color:rgba(59,130,246,.3);transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.service-badge{display:inline-flex;align-items:center;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);color:var(--accent);padding:.25rem .85rem;border-radius:100px;font-size:.68rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;margin-bottom:1.25rem}
+.service-card h3{font-size:1.1rem;font-weight:800;margin-bottom:.85rem;color:var(--text);line-height:1.3}
+.service-card>p{color:var(--text2);font-size:.875rem;line-height:1.75;margin-bottom:1.25rem}
+.service-features{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:.4rem .75rem}
+.service-features li{font-size:.78rem;color:var(--text2);display:flex;align-items:flex-start;gap:.45rem;line-height:1.45}
+.service-features li::before{content:'✦';color:var(--accent);font-size:.55rem;flex-shrink:0;margin-top:.25rem}
+
+/* TOOLS */
+#tools{background:var(--bg)}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1rem}
+.tool-item{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:1.25rem .75rem;text-align:center;transition:all .3s;cursor:default}
+.tool-item:hover{border-color:rgba(59,130,246,.45);transform:translateY(-4px);background:rgba(59,130,246,.05);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.tool-icon{font-size:1.6rem;margin-bottom:.6rem;display:block}
+.tool-name{font-size:.75rem;color:var(--text2);font-weight:600;display:block}
+
+/* CASE STUDY */
+#casestudy{background:var(--bg2)}
+.case-card{background:var(--bg3);border:1px solid var(--border);border-radius:20px;overflow:hidden}
+.case-header{background:linear-gradient(135deg,rgba(59,130,246,.1),rgba(99,102,241,.1));border-bottom:1px solid var(--border);padding:2rem 2.5rem}
+.case-meta{display:flex;gap:2rem;margin-bottom:1rem;flex-wrap:wrap}
+.case-meta-item small{display:block;font-size:.68rem;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.25rem}
+.case-meta-item span{font-size:.85rem;font-weight:700;color:var(--gold)}
+.case-title{font-size:1.5rem;font-weight:800;line-height:1.25;color:var(--text)}
+.case-body{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
+.case-col{padding:2rem 2.5rem;border-right:1px solid var(--border)}
+.case-col:last-child{border-right:none}
+.case-col-label{font-size:.7rem;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:1rem;display:flex;align-items:center;gap:.4rem}
+.case-col-label::before{content:'';display:inline-block;width:24px;height:2px;background:var(--accent);border-radius:1px}
+.case-col p{font-size:.83rem;color:var(--text2);line-height:1.7;margin-bottom:.6rem}
+.case-col ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.case-col ul li{font-size:.82rem;color:var(--text2);display:flex;align-items:flex-start;gap:.4rem}
+.case-col ul li::before{content:'→';color:var(--accent);flex-shrink:0}
+.case-result-highlight{background:rgba(59,130,246,.06);border-radius:8px;padding:.85rem 1rem;margin-top:.5rem}
+.case-result-highlight strong{color:var(--text);font-size:.83rem;display:block;margin-bottom:.2rem}
+.case-result-highlight span{font-size:.78rem;color:var(--text2)}
+.case-quote{border-top:1px solid var(--border);padding:1.5rem 2.5rem;background:rgba(59,130,246,.03);font-style:italic;color:var(--text2);font-size:.85rem;display:flex;align-items:center;gap:1rem}
+.case-quote::before{content:'"';font-size:2.5rem;color:var(--accent);opacity:.4;flex-shrink:0;line-height:1}
+
+/* PROJECTS */
+#projects{background:var(--bg)}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.project-card{background:var(--bg2);border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:all .35s}
+.project-card:hover{border-color:rgba(59,130,246,.4);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.project-thumb{height:150px;background:linear-gradient(135deg,rgba(59,130,246,.12),rgba(99,102,241,.12));display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative}
+.project-thumb-label{position:absolute;top:12px;left:12px;background:rgba(6,11,20,.8);border:1px solid var(--border);border-radius:6px;padding:.25rem .6rem;font-size:.65rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;backdrop-filter:blur(4px)}
+.project-body{padding:1.5rem}
+.project-body h3{font-size:.95rem;font-weight:700;margin-bottom:.5rem;color:var(--text)}
+.project-body p{font-size:.82rem;color:var(--text2);line-height:1.65;margin-bottom:1rem}
+.project-link{color:var(--text3);font-size:.78rem;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:.3rem;font-style:italic}
+
+/* CONTACT */
+#contact{background:var(--bg2)}
+.contact-wrapper{max-width:800px;margin:0 auto;text-align:center}
+.contact-wrapper .section-sub{margin-left:auto;margin-right:auto}
+.contact-cards{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:3rem}
+.contact-card{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:2rem;display:flex;flex-direction:column;align-items:center;gap:.85rem;text-decoration:none;color:var(--text);transition:all .3s}
+.contact-card:hover{border-color:rgba(59,130,246,.45);transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.4);background:rgba(59,130,246,.05)}
+.contact-card-icon{width:56px;height:56px;border-radius:14px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);display:flex;align-items:center;justify-content:center;font-size:1.4rem;transition:transform .2s}
+.contact-card:hover .contact-card-icon{transform:scale(1.1)}
+.contact-card h4{font-size:.95rem;font-weight:700}
+.contact-card p{font-size:.83rem;color:var(--text2)}
+.contact-cta{background:var(--grad);color:#fff;border:none;padding:1.1rem 3rem;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.6rem;transition:all .25s;box-shadow:0 4px 24px rgba(59,130,246,.35);letter-spacing:.02em}
+.contact-cta:hover{transform:translateY(-3px);box-shadow:0 10px 35px rgba(59,130,246,.55)}
+
+/* FOOTER */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:2.5rem 5%;text-align:center}
+.footer-inner{max-width:1200px;margin:0 auto}
+footer .logo-foot{font-size:1.3rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem}
+footer p{color:var(--text3);font-size:.8rem;margin-top:.4rem}
+
+/* AI CHAT */
+#chat-bubble{position:fixed;bottom:28px;right:28px;z-index:1000}
+.chat-btn{width:60px;height:60px;border-radius:50%;background:var(--grad);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 28px rgba(59,130,246,.5);transition:transform .2s;font-size:1.5rem;position:relative}
+.chat-btn:hover{transform:scale(1.1)}
+.chat-btn::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(59,130,246,.3);animation:pulse 2s infinite}
+.chat-notif{position:absolute;top:-3px;right:-3px;background:#ef4444;color:#fff;width:20px;height:20px;border-radius:50%;font-size:.65rem;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg)}
+#chat-panel{position:fixed;bottom:104px;right:28px;width:390px;max-height:580px;background:var(--bg2);border:1px solid var(--border);border-radius:22px;display:none;flex-direction:column;z-index:1000;box-shadow:0 24px 70px rgba(0,0,0,.6);overflow:hidden;animation:scaleIn .25s ease}
+#chat-panel.open{display:flex}
+.chat-header{background:linear-gradient(135deg,rgba(59,130,246,.12),rgba(99,102,241,.12));border-bottom:1px solid var(--border);padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem}
+.chat-avatar{width:40px;height:40px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid rgba(59,130,246,.4)}
+.chat-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.chat-header-info h4{font-size:.9rem;font-weight:700}
+.chat-header-info small{font-size:.72rem;color:#22c55e;display:flex;align-items:center;gap:.35rem}
+.chat-header-info small::before{content:'';width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block;animation:pulse 2s infinite}
+.chat-close{margin-left:auto;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text2);cursor:pointer;font-size:.9rem;padding:.35rem .6rem;line-height:1;border-radius:6px;transition:all .2s}
+.chat-close:hover{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3);color:#ef4444}
+.chat-messages{flex:1;overflow-y:auto;padding:1.25rem;display:flex;flex-direction:column;gap:.85rem;scroll-behavior:smooth}
+.chat-messages::-webkit-scrollbar{width:4px}
+.chat-messages::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.msg{max-width:90%;display:flex;flex-direction:column;gap:.2rem;animation:fadeUp .25s ease}
+.msg.bot{align-self:flex-start}
+.msg.user{align-self:flex-end}
+.msg-bubble{padding:.7rem 1.05rem;border-radius:18px;font-size:.84rem;line-height:1.55}
+.msg.bot .msg-bubble{background:var(--bg3);border:1px solid var(--border);color:var(--text);border-bottom-left-radius:4px}
+.msg.user .msg-bubble{background:var(--grad);color:#fff;border-bottom-right-radius:4px}
+.msg-time{font-size:.63rem;color:var(--text3)}
+.msg.bot .msg-time{align-self:flex-start;margin-left:.3rem}
+.msg.user .msg-time{align-self:flex-end;margin-right:.3rem}
+.typing{display:flex;gap:.35rem;padding:.7rem 1rem;background:var(--bg3);border:1px solid var(--border);border-radius:18px;border-bottom-left-radius:4px;align-self:flex-start}
+.typing span{width:7px;height:7px;border-radius:50%;background:var(--text3);animation:bounce .9s infinite}
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+.chat-suggestions{padding:.5rem 1.25rem;display:flex;gap:.45rem;flex-wrap:wrap}
+.suggestion-chip{background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);color:var(--accent);padding:.3rem .8rem;border-radius:100px;font-size:.71rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .15s}
+.suggestion-chip:hover{background:rgba(59,130,246,.2);transform:translateY(-1px)}
+.chat-input-area{border-top:1px solid var(--border);padding:1rem;display:flex;gap:.6rem;align-items:center;background:rgba(6,11,20,.5)}
+.chat-input-area input{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:.65rem 1rem;color:var(--text);font-size:.84rem;font-family:inherit;outline:none;transition:border-color .2s}
+.chat-input-area input:focus{border-color:rgba(59,130,246,.5)}
+.chat-send{width:38px;height:38px;border-radius:10px;background:var(--grad);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;box-shadow:0 2px 10px rgba(59,130,246,.3)}
+.chat-send:hover{transform:scale(1.08)}
+.chat-send svg{width:15px;height:15px;fill:#fff}
+
+@media(max-width:900px){
+  .process-grid{grid-template-columns:1fr 1fr}
+  .case-body{grid-template-columns:1fr}
+  .case-col{border-right:none;border-bottom:1px solid var(--border)}
+  .case-col:last-child{border-bottom:none}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hero-inner,.about-grid,.contact-grid,.whyme-grid{grid-template-columns:1fr}
+  .hero-visual{order:-1}
+  .photo-ring{width:220px;height:220px}
+  .photo-wrapper{width:220px;height:220px}
+  .float-tag.t1,.float-tag.t2{display:none}
+  #chat-panel{width:calc(100vw - 40px);right:20px;bottom:96px}
+  .services-grid .service-features{grid-template-columns:1fr}
+  .contact-cards{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- PARTICLES BG -->
+<div class="hero-particles" id="particles"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="logo">JM.</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#whyme">Why Me</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#tools">Tools</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Hire Me →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge"><div class="dot"></div>Available for Work</div>
+      <h1>Hi, I'm <span class="name">Jallil Mutalib</span> —<br>Your Virtual Assistant<br>& AI Expert</h1>
+      <p class="hero-role">Executive Assistant · AI Automation · Graphic Designer · Video Editor</p>
+      <p class="hero-sub">Empowering entrepreneurs and teams to work smarter, move faster, and achieve more — with precision, creativity, and reliability at the core.</p>
+      <div class="hero-btns">
+        <a href="#services" class="btn-primary">View My Services →</a>
+        <a href="#contact" class="btn-outline">Get In Touch</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item"><div class="stat-num">4+</div><div class="stat-label">Core Services</div></div>
+        <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Dedicated</div></div>
+        <div class="stat-item"><div class="stat-num">GMT+8</div><div class="stat-label">Philippines</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="photo-wrapper">
+        <div class="float-tag t1"><div class="dot2"></div> Available Now</div>
+        <div class="float-tag t2">🤖 AI Automation</div>
+        <div class="photo-ring">
+          <div class="photo-inner">
+            <img src="https://i.imgur.com/placeholder.jpg" alt="Jallil Mutalib" id="profileImg" onerror="this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;background:var(--bg2)\'><div style=\'font-size:5rem;font-weight:900;background:linear-gradient(135deg,#3b82f6,#6366f1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text\'>JM</div><div style=\'font-size:.7rem;color:#64748b;letter-spacing:.1em;text-transform:uppercase\'>Virtual Assistant</div></div>'"/>
+          </div>
+        </div>
+        <div class="photo-badge">✦ Virtual Assistant & AI Expert</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text animate-on-scroll">
+        <div class="section-tag">About Me</div>
+        <h2 class="section-title">Growth-Driven.<br>Detail-Oriented.<br>Reliable.</h2>
+        <p>I'm a creative, organized, and growth-driven professional with a strong passion for building digital projects and continuously improving my skills in communication, technology, and design.</p>
+        <p>I am highly detail-oriented and efficient, making me well-suited for executive assistant or personal assistant roles where I can manage schedules, organize tasks, support daily operations, and ensure smooth workflow with professionalism and reliability.</p>
+        <p>I am committed to learning, adapting, and turning ideas into practical results — maintaining strong organization and accountability in everything I do.</p>
+      </div>
+      <div class="about-highlights">
+        <div class="highlight-card animate-on-scroll delay-1"><div class="highlight-icon">🎯</div><div><h4>Precision-Driven Execution</h4><p>Delivers every task with accuracy, structured workflows, and consistent attention to detail.</p></div></div>
+        <div class="highlight-card animate-on-scroll delay-2"><div class="highlight-icon">⚡</div><div><h4>Rapid Learner & Adaptor</h4><p>Quickly masters new tools, platforms, and processes to stay ahead in a fast-paced environment.</p></div></div>
+        <div class="highlight-card animate-on-scroll delay-3"><div class="highlight-icon">🤖</div><div><h4>AI-Powered Efficiency</h4><p>Leverages cutting-edge AI automation tools to streamline operations and maximize productivity.</p></div></div>
+        <div class="highlight-card animate-on-scroll delay-4"><div class="highlight-icon">🎨</div><div><h4>Creative Visual Sense</h4><p>Strong aesthetic judgment for design, branding, and compelling visual storytelling.</p></div></div>
+        <div class="highlight-card animate-on-scroll delay-5"><div class="highlight-icon">🌏</div><div><h4>GMT+8 Time Zone (PH)</h4><p>Based in the Philippines, available to support international clients across overlapping hours.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY ME -->
+<section id="whyme">
+  <div class="section-inner">
+    <div class="section-tag animate-on-scroll">Why Choose Me</div>
+    <h2 class="section-title animate-on-scroll">Why work with me.</h2>
+    <p class="section-sub animate-on-scroll">Four clear reasons why clients trust me to deliver results consistently and professionally.</p>
+    <div class="whyme-grid">
+      <div class="whyme-card animate-on-scroll delay-1">
+        <div class="whyme-num">01</div>
+        <h3>Time Zone Advantage</h3>
+        <h4>Consistent Support Across Different Time Zones</h4>
+        <p>Based in the Philippines (GMT+8), I can support tasks during overlapping hours with international clients. This allows work to continue smoothly, helping maintain progress and reduce delays in daily operations.</p>
+      </div>
+      <div class="whyme-card animate-on-scroll delay-2">
+        <div class="whyme-num">02</div>
+        <h3>Organized & Detail-Oriented Work</h3>
+        <h4>Reliable Support You Can Count On</h4>
+        <p>I focus on completing tasks accurately, staying organized, and following clear instructions. I make sure that every task is handled with attention to detail, consistency, and accountability.</p>
+      </div>
+      <div class="whyme-card animate-on-scroll delay-3">
+        <div class="whyme-num">03</div>
+        <h3>Clear & Professional Communication</h3>
+        <h4>Easy to Work With, Easy to Understand</h4>
+        <p>I communicate clearly in English through email, chat, and documentation. Whether handling customer inquiries or internal tasks, I ensure messages are professional, simple, and effective.</p>
+      </div>
+      <div class="whyme-card animate-on-scroll delay-4">
+        <div class="whyme-num">04</div>
+        <h3>Practical Value & Dependability</h3>
+        <h4>Support That Helps You Stay Focused</h4>
+        <p>I provide dependable assistance with daily tasks so you can focus on more important parts of your business. My goal is to make your workflow smoother and help reduce your workload over time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-inner">
+    <div class="section-tag animate-on-scroll">My Process</div>
+    <h2 class="section-title animate-on-scroll">How we'll work.</h2>
+    <p class="section-sub animate-on-scroll">A simple, transparent, and structured process from first call to final delivery.</p>
+    <div class="process-grid">
+      <div class="process-card animate-on-scroll delay-1">
+        <div class="process-num">01</div>
+        <h3>Discovery</h3>
+        <p>We start with a quick 30-minute call to understand your goals, audience, and what you want done. I'll keep everything simple and easy to follow — no technical terms. After the call, I'll send a clear plan and next steps within 24 hours.</p>
+      </div>
+      <div class="process-card animate-on-scroll delay-2">
+        <div class="process-num">02</div>
+        <h3>Setup</h3>
+        <p>Once you're ready to proceed, I'll set up a shared workspace in Notion where you can track everything. You'll see the timeline, tasks, and progress in one place. A 50% down payment confirms your project schedule.</p>
+      </div>
+      <div class="process-card animate-on-scroll delay-3">
+        <div class="process-num">03</div>
+        <h3>Execution</h3>
+        <p>I build and execute your project step-by-step and send updates every few days. You can review progress and request changes early so everything stays aligned with your vision. I handle design, structure, and ensure smooth operation across all platforms.</p>
+      </div>
+      <div class="process-card animate-on-scroll delay-4">
+        <div class="process-num">04</div>
+        <h3>Handover & Support</h3>
+        <p>Once everything is ready, I'll deliver and guide you on how to manage it. You'll receive a simple walkthrough and all your files in one organized folder. I also provide 14 days of support for any small updates or questions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-tag animate-on-scroll">Skills</div>
+    <h2 class="section-title animate-on-scroll">What I Bring to the Table</h2>
+    <p class="section-sub animate-on-scroll">A versatile skill set combining administrative excellence, technical know-how, and creative capability — optimized for high-impact results.</p>
+    <div class="skills-grid">
+      <div class="skill-card animate-on-scroll delay-1">
+        <div class="skill-card-icon">🗂️</div>
+        <h3>Administrative & Organizational</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Task & Schedule Management</span>
+          <span class="skill-tag">Workflow Coordination</span>
+          <span class="skill-tag">Attention to Detail</span>
+          <span class="skill-tag">Executive Support</span>
+          <span class="skill-tag">Client Communication</span>
+          <span class="skill-tag">Follow-up Handling</span>
+        </div>
+      </div>
+      <div class="skill-card animate-on-scroll delay-2">
+        <div class="skill-card-icon">💻</div>
+        <h3>Technical Skills</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">HTML & CSS</span>
+          <span class="skill-tag">React Basics</span>
+          <span class="skill-tag">GitHub</span>
+          <span class="skill-tag">Replit</span>
+          <span class="skill-tag">Website Building</span>
+          <span class="skill-tag">Portfolio Design</span>
+          <span class="skill-tag">Zapier</span>
+          <span class="skill-tag">Make.com</span>
+        </div>
+      </div>
+      <div class="skill-card animate-on-scroll delay-3">
+        <div class="skill-card-icon">🎨</div>
+        <h3>Creative Skills</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Graphic Design</span>
+          <span class="skill-tag">Visual Storytelling</span>
+          <span class="skill-tag">Layout Design</span>
+          <span class="skill-tag">Digital Content Creation</span>
+          <span class="skill-tag">UI Aesthetics</span>
+          <span class="skill-tag">Video Editing</span>
+        </div>
+      </div>
+      <div class="skill-card animate-on-scroll delay-4">
+        <div class="skill-card-icon">🧠</div>
+        <h3>Soft Skills</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Fast Learner</span>
+          <span class="skill-tag">Problem Solver</span>
+          <span class="skill-tag">Adaptability</span>
+          <span class="skill-tag">Self-Motivated</span>
+          <span class="skill-tag">Consistent</span>
+          <span class="skill-tag">Growth Mindset</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-tag animate-on-scroll">Services</div>
+    <h2 class="section-title animate-on-scroll">Professional Services I Offer</h2>
+    <p class="section-sub animate-on-scroll">Tailored solutions to help your business run smoothly, look premium, and scale efficiently — delivered with professionalism and reliability.</p>
+    <div class="services-grid">
+      <div class="service-card animate-on-scroll delay-1">
+        <div class="service-badge">Core Service</div>
+        <h3>🗂️ Executive & Virtual Assistance</h3>
+        <p>Reliable administrative support designed to keep your business organized, efficient, and running smoothly every day. I help manage operations, streamline communication, and support daily workflows so you can focus on growth and high-priority tasks.</p>
+        <ul class="service-features">
+          <li>Calendar & schedule management</li>
+          <li>Email management & follow-ups</li>
+          <li>Task coordination & prioritization</li>
+          <li>Client communication support</li>
+          <li>Document preparation & organization</li>
+          <li>Daily operational assistance</li>
+        </ul>
+      </div>
+      <div class="service-card animate-on-scroll delay-2">
+        <div class="service-badge">Premium</div>
+        <h3>🤖 AI Automation & Integration</h3>
+        <p>Leverage modern AI tools and automation systems to eliminate repetitive tasks, improve efficiency, and scale operations smarter. I build streamlined workflows using platforms like ChatGPT, Zapier, and Make.com to optimize business processes and productivity.</p>
+        <ul class="service-features">
+          <li>Workflow automation setup</li>
+          <li>AI tool integration (ChatGPT, Zapier, Make.com)</li>
+          <li>Process optimization using AI</li>
+          <li>Automated email & CRM workflows</li>
+          <li>Reporting & data automation</li>
+          <li>AI-powered content pipelines</li>
+        </ul>
+      </div>
+      <div class="service-card animate-on-scroll delay-3">
+        <div class="service-badge">Creative</div>
+        <h3>🎨 Graphic Design</h3>
+        <p>Professional and visually engaging designs that strengthen your brand identity and communicate your message with clarity, creativity, and impact across digital platforms.</p>
+        <ul class="service-features">
+          <li>Social media graphics</li>
+          <li>Brand identity design</li>
+          <li>Presentation & pitch deck design</li>
+          <li>Marketing materials</li>
+          <li>Portfolio & layout design</li>
+          <li>Digital content creation</li>
+        </ul>
+      </div>
+      <div class="service-card animate-on-scroll delay-4">
+        <div class="service-badge">Creative</div>
+        <h3>🎬 Video Editing</h3>
+        <p>High-quality video editing tailored for social media, marketing, and content creation. I create engaging visuals that capture attention, improve audience retention, and elevate your brand presence.</p>
+        <ul class="service-features">
+          <li>Short-form content (Reels, TikTok, Shorts)</li>
+          <li>Long-form YouTube editing</li>
+          <li>Captions & subtitles</li>
+          <li>Transitions & motion effects</li>
+          <li>Thumbnail design</li>
+          <li>Content repurposing</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="section-inner">
+    <div class="section-tag animate-on-scroll">Tools & Platforms</div>
+    <h2 class="section-title animate-on-scroll">My Toolkit</h2>
+    <p class="section-sub animate-on-scroll">The platforms and tools I rely on daily to communicate, create, automate, and deliver consistent high-quality results.</p>
+    <div class="tools-grid">
+      <div class="tool-item animate-on-scroll delay-1"><span class="tool-icon">🎨</span><span class="tool-name">Canva</span></div>
+      <div class="tool-item animate-on-scroll delay-1"><span class="tool-icon">📧</span><span class="tool-name">Gmail</span></div>
+      <div class="tool-item animate-on-scroll delay-2"><span class="tool-icon">📹</span><span class="tool-name">Zoom</span></div>
+      <div class="tool-item animate-on-scroll delay-2"><span class="tool-icon">💬</span><span class="tool-name">Slack</span></div>
+      <div class="tool-item animate-on-scroll delay-2"><span class="tool-icon">🎥</span><span class="tool-name">Loom</span></div>
+      <div class="tool-item animate-on-scroll delay-3"><span class="tool-icon">📋</span><span class="tool-name">Notion</span></div>
+      <div class="tool-item animate-on-scroll delay-3"><span class="tool-icon">✅</span><span class="tool-name">Asana</span></div>
+      <div class="tool-item animate-on-scroll delay-3"><span class="tool-icon">📅</span><span class="tool-name">Calendly</span></div>
+      <div class="tool-item animate-on-scroll delay-4"><span class="tool-icon">📆</span><span class="tool-name">Google Calendar</span></div>
+      <div class="tool-item animate-on-scroll delay-4"><span class="tool-icon">📊</span><span class="tool-name">Google Sheets</span></div>
+      <div class="tool-item animate-on-scroll delay-4"><span class="tool-icon">📁</span><span class="tool-name">Google Workspace</span></div>
+      <div class="tool-item animate-on-scroll delay-5"><span class="tool-icon">📄</span><span class="tool-name">Google Docs</span></div>
+      <div class="tool-item animate-on-scroll delay-5"><span class="tool-icon">⚡</span><span class="tool-name">Zapier</span></div>
+      <div class="tool-item animate-on-scroll delay-5"><span class="tool-icon">🔗</span><span class="tool-name">Make.com</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDY -->
+<section id="casestudy">
+  <div class="section-inner">
+    <div class="section-tag animate-on-scroll">Case Study</div>
+    <h2 class="section-title animate-on-scroll">Real Results, Real Impact</h2>
+    <p class="section-sub animate-on-scroll">A look at how strategic content management and design can drive measurable business growth.</p>
+    <div class="case-card animate-on-scroll">
+      <div class="case-header">
+        <div class="case-meta">
+          <div class="case-meta-item"><small>Client</small><span>Food / Business</span></div>
+          <div class="case-meta-item"><small>Duration</small><span>4 Weeks</span></div>
+          <div class="case-meta-item"><small>Service</small><span>Social Media Management + Graphic Design</span></div>
+        </div>
+        <div class="case-title">Increased a Local Café's Instagram Engagement by 650% in 4 Weeks</div>
+      </div>
+      <div class="case-body">
+        <div class="case-col">
+          <div class="case-col-label">Problem</div>
+          <p>The café's Instagram page had only 200 followers and a 2% engagement rate. Posts were inconsistent with no clear branding or content strategy.</p>
+          <p>They were losing customers to competitors with stronger online presence and more professional visual identity.</p>
+        </div>
+        <div class="case-col">
+          <div class="case-col-label">Solution</div>
+          <ul>
+            <li>Created a 30-day content calendar with branded Canva templates aligned to their brand identity</li>
+            <li>Published Reels 3× per week showcasing the coffee-making process and authentic customer content</li>
+            <li>Implemented local hashtag strategy (#gardenCOFFEE) to attract nearby customers and drive foot traffic</li>
+          </ul>
+        </div>
+        <div class="case-col">
+          <div class="case-col-label">Results</div>
+          <div class="case-result-highlight"><strong>📈 Followers: 200 → 800</strong><span>4× growth in 4 weeks</span></div>
+          <div class="case-result-highlight" style="margin-top:.6rem"><strong>🔥 Engagement: 2% → 15%</strong><span>650% improvement in reach & interaction</span></div>
+          <div class="case-result-highlight" style="margin-top:.6rem"><strong>🏪 5,000 accounts reached</strong><span>Giveaway post brought 30+ new walk-in customers</span></div>
+        </div>
+      </div>
+      <div class="case-quote">Finally our IG looks professional — there's a lot of inquiries now. &nbsp;— Owner, Garden Coffee</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-tag animate-on-scroll">Projects</div>
+    <h2 class="section-title animate-on-scroll">Featured Work</h2>
+    <p class="section-sub animate-on-scroll">Projects I've built and delivered. Links will be updated as each project launches publicly.</p>
+    <div class="projects-grid">
+      <div class="project-card animate-on-scroll delay-1">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#0d1527,#111d35);padding:0;overflow:hidden;position:relative">
+          <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(59,130,246,.18),rgba(99,102,241,.18));z-index:1"></div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;z-index:2">
+            <div style="font-size:2rem">🌐</div>
+            <div style="font-size:.65rem;color:#94a3b8;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Portfolio + AI Chat</div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:center;padding:0 1rem">
+              <span style="background:rgba(59,130,246,.2);border:1px solid rgba(59,130,246,.3);color:#3b82f6;padding:2px 8px;border-radius:100px;font-size:.6rem;font-weight:600">HTML/CSS</span>
+              <span style="background:rgba(99,102,241,.2);border:1px solid rgba(99,102,241,.3);color:#818cf8;padding:2px 8px;border-radius:100px;font-size:.6rem;font-weight:600">AI Chat</span>
+              <span style="background:rgba(6,182,212,.2);border:1px solid rgba(6,182,212,.3);color:#06b6d4;padding:2px 8px;border-radius:100px;font-size:.6rem;font-weight:600">Animations</span>
+            </div>
+          </div>
+          <div class="project-thumb-label">Web Dev</div>
+        </div>
+        <div class="project-body">
+          <h3>Personal Portfolio Website</h3>
+          <p>Designed and developed a professional portfolio website from scratch featuring an AI-powered chat assistant, smooth animations, and a fully responsive layout — deployed via GitHub Pages.</p>
+          <a href="#" class="project-link">🔗 Link coming soon</a>
+        </div>
+      </div>
+      <div class="project-card animate-on-scroll delay-2">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#0a1628,#0d1f3c);padding:0;overflow:hidden;position:relative">
+          <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(59,130,246,.1),rgba(6,182,212,.1));z-index:1"></div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;z-index:2">
+            <div style="font-size:2rem">🤖</div>
+            <div style="font-size:.65rem;color:#94a3b8;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Automation Workflow</div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:center;padding:0 1rem">
+              <span style="background:rgba(251,146,60,.15);border:1px solid rgba(251,146,60,.3);color:#fb923c;padding:2px 8px;border-radius:100px;font-size:.6rem;font-weight:600">Zapier</span>
+              <span style="background:rgba(168,85,247,.15);border:1px solid rgba(168,85,247,.3);color:#a855f7;padding:2px 8px;border-radius:100px;font-size:.6rem;font-weight:600">Make.com</span>
+              <span style="background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);color:#22c55e;padding:2px 8px;border-radius:100px;font-size:.6rem;font-weight:600">ChatGPT</span>
+            </div>
+          </div>
+          <div class="project-thumb-label">AI Automation</div>
+        </div>
+        <div class="project-body">
+          <h3>AI Workflow Automation Setup</h3>
+          <p>Architected and implemented an end-to-end automated workflow using Zapier and Make.com to streamline administrative tasks, client onboarding, and communication pipelines.</p>
+          <a href="#" class="project-link">🔗 Link coming soon</a>
+        </div>
+      </div>
+      <div class="project-card animate-on-scroll delay-3" onclick="openDesignModal()" style="cursor:pointer">
+        <div class="project-thumb" style="padding:0;overflow:hidden;position:relative;background:#6e1a0e">
+          <div style="position:absolute;inset:0;background:linear-gradient(135deg,#922b21,#c0392b,#6e2417);opacity:.9"></div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;z-index:2">
+            <div style="font-size:1.8rem">☕🍔</div>
+            <div style="font-size:.7rem;color:#f0c96a;font-weight:800;letter-spacing:.08em;text-transform:uppercase">Coffee & Food Posters</div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:center;padding:0 1rem">
+              <span style="background:rgba(240,201,106,.15);border:1px solid rgba(240,201,106,.4);color:#f0c96a;padding:2px 8px;border-radius:100px;font-size:.6rem;font-weight:700">Coffee Posters</span>
+              <span style="background:rgba(240,201,106,.15);border:1px solid rgba(240,201,106,.4);color:#f0c96a;padding:2px 8px;border-radius:100px;font-size:.6rem;font-weight:700">Food Posters</span>
+              <span style="background:rgba(240,201,106,.15);border:1px solid rgba(240,201,106,.4);color:#f0c96a;padding:2px 8px;border-radius:100px;font-size:.6rem;font-weight:700">Business Banners</span>
+            </div>
+            <div style="margin-top:4px;font-size:.68rem;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:4px">👆 Click to view portfolio</div>
+          </div>
+          <div class="project-thumb-label">Graphic Design</div>
+        </div>
+        <div class="project-body">
+          <h3>Brand Visual Identity Kit</h3>
+          <p>Produced a complete social media visual system — coffee & food posters, business banners, branded templates, and marketing materials to elevate a client's brand identity and drive engagement.</p>
+          <span class="project-link" style="color:var(--accent);opacity:1;cursor:pointer;font-style:normal">👁 View Design Portfolio →</span>
+        </div>
+      </div>
+
+<!-- DESIGN MODAL -->
+<style>
+#designModal{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0);backdrop-filter:blur(0px);overflow-y:auto;padding:2rem 1rem;transition:background .35s,backdrop-filter .35s}
+#designModal.visible{background:rgba(0,0,0,.88);backdrop-filter:blur(10px)}
+#modalBox{transform:translateY(40px) scale(.97);opacity:0;transition:transform .4s cubic-bezier(.22,1,.36,1),opacity .35s ease;max-width:860px;margin:0 auto;background:#0d1527;border:1px solid #1e2d4a;border-radius:22px;overflow:hidden}
+#designModal.visible #modalBox{transform:translateY(0) scale(1);opacity:1}
+.design-slide{border-radius:14px;overflow:hidden;border:1px solid #1e2d4a;opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+.design-slide.show{opacity:1;transform:translateY(0)}
+.slide-bar{background:#0a1120;padding:.65rem 1rem;border-bottom:1px solid #1e2d4a;display:flex;align-items:center;gap:.4rem}
+.dot-r{width:10px;height:10px;border-radius:50%;background:#ef4444;display:inline-block}
+.dot-y{width:10px;height:10px;border-radius:50%;background:#f59e0b;display:inline-block}
+.dot-g{width:10px;height:10px;border-radius:50%;background:#22c55e;display:inline-block}
+.slide-label{font-size:.72rem;color:#64748b;margin-left:.5rem;font-weight:600}
+
+/* POSTER 1 — Coffee & Food */
+.poster-main{background:linear-gradient(135deg,#8B1A0A 0%,#C0392B 40%,#8B1A0A 100%);padding:2rem;position:relative;overflow:hidden}
+.poster-main::before{content:'COFFEE';position:absolute;top:-10px;left:-10px;font-size:5rem;font-weight:900;color:rgba(255,255,255,.04);letter-spacing:-.02em;pointer-events:none}
+.poster-main::after{content:'FOOD';position:absolute;bottom:-15px;right:-5px;font-size:5rem;font-weight:900;color:rgba(255,255,255,.04);letter-spacing:-.02em;pointer-events:none}
+.poster-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.poster-big-title{font-size:1.6rem;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:.03em;line-height:1;text-shadow:2px 2px 0 rgba(0,0,0,.3)}
+.poster-big-title span{color:#f0c96a}
+.poster-grid{display:grid;grid-template-columns:1fr 1.6fr 1fr;gap:1rem;align-items:start}
+
+/* Coffee square post */
+.coffee-post{background:linear-gradient(145deg,#5D2E0C,#795548);border-radius:10px;padding:1rem;position:relative;overflow:hidden;aspect-ratio:1}
+.coffee-post::before{content:'COFFEE';position:absolute;bottom:-8px;left:-4px;font-size:2.2rem;font-weight:900;color:rgba(255,255,255,.07);pointer-events:none}
+.coffee-label{font-size:.6rem;color:rgba(255,255,255,.7);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem}
+.coffee-name{font-size:1.3rem;font-weight:900;color:#fff;line-height:1;text-transform:uppercase}
+.coffee-sub{font-size:.55rem;color:#d4a574;margin-top:.4rem;font-weight:600}
+.coffee-icon{font-size:2rem;position:absolute;bottom:.75rem;right:.75rem;opacity:.9}
+.coffee-badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;padding:.2rem .5rem;border-radius:100px;font-size:.5rem;font-weight:700;margin-top:.4rem;text-transform:uppercase;letter-spacing:.08em}
+
+/* Banner post */
+.banner-wrap{display:flex;flex-direction:column;gap:.6rem}
+.coffee-banner{background:linear-gradient(90deg,#5D2E0C,#8B4513);border-radius:8px;padding:.75rem 1rem;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden}
+.coffee-banner::after{content:'';position:absolute;right:0;top:0;bottom:0;width:35%;background:rgba(255,255,255,.04)}
+.banner-left{}
+.banner-tagline{font-size:.5rem;color:rgba(255,255,255,.6);font-style:italic;font-family:Georgia,serif}
+.banner-title{font-size:.95rem;font-weight:900;color:#fff;text-transform:uppercase;line-height:1}
+.banner-offer{font-size:.45rem;color:rgba(255,255,255,.6);font-style:italic;font-family:Georgia,serif;margin-top:.1rem}
+.banner-badge{background:#f0c96a;color:#5D2E0C;border-radius:6px;padding:.3rem .5rem;font-size:.55rem;font-weight:900;text-align:center;line-height:1.2;flex-shrink:0}
+.banner-footer{background:rgba(0,0,0,.2);border-radius:0 0 8px 8px;margin:-0px;padding:.35rem .75rem;display:flex;align-items:center;justify-content:space-between}
+.banner-cta{background:#f0c96a;color:#5D2E0C;padding:.2rem .6rem;border-radius:4px;font-size:.5rem;font-weight:900;text-transform:uppercase}
+.banner-phone{font-size:.5rem;color:rgba(255,255,255,.6)}
+.coffee-cup{font-size:1.5rem;flex-shrink:0;margin-left:.5rem}
+
+/* Burger post */
+.burger-post{background:linear-gradient(170deg,#f5f0e8,#ede8dc);border-radius:10px;padding:1rem;position:relative;overflow:hidden;aspect-ratio:0.6}
+.burger-bg-text{position:absolute;top:0;left:-4px;font-size:2.8rem;font-weight:900;color:rgba(180,20,20,.12);line-height:.9;pointer-events:none;text-transform:uppercase}
+.burger-label{font-size:.5rem;color:#c0392b;font-weight:800;font-style:italic;letter-spacing:.03em}
+.burger-label span{font-size:.38rem;color:#555;font-style:normal;font-weight:600}
+.burger-name{font-size:1.8rem;font-weight:900;color:#c0392b;line-height:.9;text-transform:uppercase;letter-spacing:-.01em}
+.burger-icon{font-size:2rem;display:block;margin:.4rem 0}
+.burger-badge{background:#c0392b;color:#fff;padding:.2rem .5rem;border-radius:4px;font-size:.5rem;font-weight:800}
+.burger-delivery{font-size:.45rem;color:#555;margin-top:.3rem;line-height:1.4}
+.burger-cta{position:absolute;bottom:.75rem;right:.75rem;background:#c0392b;color:#fff;padding:.3rem .6rem;border-radius:5px;font-size:.5rem;font-weight:800;text-transform:uppercase}
+
+/* SLIDE 2 — Welcome */
+.welcome-slide{background:linear-gradient(135deg,#7f0000 0%,#b71c1c 35%,#c62828 60%,#8B0000 100%);padding:2.5rem;display:grid;grid-template-columns:1.2fr 1fr;gap:2rem;align-items:center;position:relative;overflow:hidden;min-height:280px}
+.welcome-slide::before{content:'';position:absolute;top:-60px;right:30%;width:200px;height:200px;background:rgba(255,255,255,.04);border-radius:50%}
+.welcome-slide::after{content:'';position:absolute;bottom:-40px;left:10%;width:150px;height:150px;background:rgba(0,0,0,.08);border-radius:50%}
+.welcome-left{z-index:1}
+.welcome-title{font-size:2.8rem;font-weight:900;color:#fff;text-transform:uppercase;line-height:1;margin-bottom:.75rem;text-shadow:3px 3px 0 rgba(0,0,0,.25);letter-spacing:-.02em}
+.welcome-sub{font-size:.82rem;color:rgba(255,255,255,.8);line-height:1.65;margin-bottom:1.5rem;max-width:300px}
+.welcome-contacts{display:flex;flex-direction:column;gap:.6rem}
+.wc-item{display:flex;align-items:center;gap:.65rem;font-size:.75rem;color:rgba(255,255,255,.85)}
+.wc-icon{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;font-weight:900}
+.wc-fb{background:#1877f2}
+.wc-ph{background:#22c55e}
+.wc-em{background:#ea4335}
+.welcome-presenter{margin-top:1.25rem;font-size:.72rem;color:rgba(255,255,255,.45)}
+.welcome-presenter strong{color:#f0c96a;font-size:.8rem}
+.welcome-right{background:rgba(255,255,255,.96);border-radius:14px;padding:1.75rem;text-align:center;z-index:1;box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.wr-avatar{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#e53935,#b71c1c);margin:0 auto .75rem;display:flex;align-items:center;justify-content:center;font-size:1.8rem}
+.wr-name{font-size:.9rem;font-weight:800;color:#1a1a1a}
+.wr-title{font-size:.7rem;color:#777;margin-top:.2rem}
+.wr-badge{display:inline-block;margin-top:.6rem;background:#c0392b;color:#fff;padding:.25rem .7rem;border-radius:100px;font-size:.6rem;font-weight:700}
+</style>
+
+<div id="designModal" onclick="closeDesignModal(event)">
+  <div id="modalBox" onclick="event.stopPropagation()">
+    <!-- Header -->
+    <div style="background:linear-gradient(135deg,rgba(59,130,246,.1),rgba(99,102,241,.1));border-bottom:1px solid #1e2d4a;padding:1.4rem 2rem;display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font-size:.68rem;color:#3b82f6;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.3rem">🎨 Graphic Design Portfolio</div>
+        <h3 style="font-size:1.2rem;font-weight:800;color:#f1f5f9;margin:0">Brand Visual Identity Kit — Jallil Mutalib</h3>
+      </div>
+      <button onclick="closeDesignModal()" style="background:rgba(255,255,255,.05);border:1px solid #1e2d4a;color:#94a3b8;width:36px;height:36px;border-radius:9px;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0" onmouseover="this.style.background='rgba(239,68,68,.15)';this.style.borderColor='rgba(239,68,68,.3)';this.style.color='#ef4444'" onmouseout="this.style.background='rgba(255,255,255,.05)';this.style.borderColor='#1e2d4a';this.style.color='#94a3b8'">✕</button>
+    </div>
+
+    <!-- Body -->
+    <div style="padding:1.75rem;display:flex;flex-direction:column;gap:1.25rem">
+
+      <!-- SLIDE 1: Coffee & Food Posters -->
+      <div class="design-slide" id="slide1">
+        <div class="slide-bar">
+          <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
+          <span class="slide-label">coffee-food-posters.jpg — Business Poster Collection</span>
+        </div>
+        <div class="poster-main">
+          <div class="poster-title-row">
+            <div class="poster-big-title">COFFEE &amp; <span>FOOD</span> POSTERS</div>
+            <div style="font-size:.65rem;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.08em">Business<br>Poster</div>
+          </div>
+          <div class="poster-grid">
+            <!-- Coffee Square -->
+            <div class="coffee-post">
+              <div class="coffee-label">COFFEE</div>
+              <div class="coffee-name">COF<br>FEE</div>
+              <div class="coffee-sub">NEW CARAMEL COFFEE</div>
+              <div class="coffee-badge">• NEW • NEW •</div>
+              <div class="coffee-icon">☕</div>
+            </div>
+            <!-- Banners -->
+            <div class="banner-wrap">
+              <div>
+                <div class="coffee-banner" style="border-radius:8px 8px 0 0">
+                  <div class="banner-left">
+                    <div class="banner-tagline">time of</div>
+                    <div class="banner-title">COFFEE</div>
+                    <div class="banner-offer">Limited Time Offer</div>
+                  </div>
+                  <div class="coffee-cup">☕</div>
+                  <div class="banner-badge">SAVE UP<br>TO 50%</div>
+                </div>
+                <div class="banner-footer">
+                  <div class="banner-cta">ORDER NOW</div>
+                  <div class="banner-phone">📞 000 1234 5678 · For Home Delivery</div>
+                </div>
+              </div>
+              <div style="background:#1e2d4a;height:1px;border-radius:1px;opacity:.4"></div>
+              <div>
+                <div class="coffee-banner" style="border-radius:8px 8px 0 0">
+                  <div class="banner-left">
+                    <div class="banner-tagline">time of</div>
+                    <div class="banner-title">COFFEE</div>
+                    <div class="banner-offer">Limited Time Offer</div>
+                  </div>
+                  <div class="coffee-cup">☕</div>
+                  <div class="banner-badge">SAVE UP<br>TO 50%</div>
+                </div>
+                <div class="banner-footer">
+                  <div class="banner-cta">ORDER NOW</div>
+                  <div class="banner-phone">📞 000 1234 5678 · For Home Delivery</div>
+                </div>
+              </div>
+            </div>
+            <!-- Burger -->
+            <div class="burger-post">
+              <div class="burger-bg-text">BU<br>RG<br>ER</div>
+              <div class="burger-label">Super <span>Delicious</span></div>
+              <div class="burger-name">BU<br>RG<br>ER</div>
+              <div class="burger-icon">🍔</div>
+              <div class="burger-badge">50% Off</div>
+              <div class="burger-delivery">Free Home<br>Delivery</div>
+              <div class="burger-cta">Order Now</div>
+            </div>
+          </div>
+          <div style="margin-top:1rem;font-size:.65rem;color:rgba(255,255,255,.35);text-align:center;font-style:italic">Designed with Canva · Social Media & Business Marketing · 2026</div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: Welcome Presentation -->
+      <div class="design-slide" id="slide2">
+        <div class="slide-bar">
+          <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
+          <span class="slide-label">portfolio-presentation.jpg — Welcome Slide</span>
+        </div>
+        <div class="welcome-slide">
+          <div class="welcome-left">
+            <div class="welcome-title">WELCOME!</div>
+            <p class="welcome-sub">This presentation includes the projects I have made as a Graphic Designer.</p>
+            <div class="welcome-contacts">
+              <div class="wc-item"><div class="wc-icon wc-fb">f</div><div><div style="font-size:.62rem;color:rgba(255,255,255,.5)">Facebook</div>Jallil Mutalib</div></div>
+              <div class="wc-item"><div class="wc-icon wc-ph">📞</div><div><div style="font-size:.62rem;color:rgba(255,255,255,.5)">Phone</div>09933031258</div></div>
+              <div class="wc-item"><div class="wc-icon wc-em">✉</div><div><div style="font-size:.62rem;color:rgba(255,255,255,.5)">Email</div>jlmutalib.ict@gmail.com</div></div>
+            </div>
+            <div class="welcome-presenter">Presented by <strong>Jallil Mutalib</strong></div>
+          </div>
+          <div class="welcome-right">
+            <div class="wr-avatar">🧑‍💼</div>
+            <div class="wr-name">Jallil Mutalib</div>
+            <div class="wr-title">Graphic Designer & VA</div>
+            <div class="wr-badge">Portfolio 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tags -->
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+        <span style="background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);color:#3b82f6;padding:.3rem .85rem;border-radius:100px;font-size:.72rem;font-weight:600">Canva Design</span>
+        <span style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);color:#f0c96a;padding:.3rem .85rem;border-radius:100px;font-size:.72rem;font-weight:600">Social Media Graphics</span>
+        <span style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#f87171;padding:.3rem .85rem;border-radius:100px;font-size:.72rem;font-weight:600">Food & Coffee Branding</span>
+        <span style="background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:#4ade80;padding:.3rem .85rem;border-radius:100px;font-size:.72rem;font-weight:600">Business Posters</span>
+        <span style="background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.2);color:#c084fc;padding:.3rem .85rem;border-radius:100px;font-size:.72rem;font-weight:600">Portfolio Presentation</span>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="border-top:1px solid #1e2d4a;padding:1.1rem 2rem;display:flex;align-items:center;justify-content:space-between;background:rgba(6,11,20,.5)">
+      <span style="font-size:.75rem;color:#64748b">🎨 Jallil Mutalib · Graphic Design Portfolio · 2026</span>
+      <button onclick="closeDesignModal()" style="background:linear-gradient(135deg,#3b82f6,#6366f1);color:#fff;border:none;padding:.55rem 1.4rem;border-radius:8px;font-size:.82rem;font-weight:700;cursor:pointer;transition:opacity .2s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">Close</button>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-wrapper">
+      <div class="section-tag animate-on-scroll" style="margin:0 auto 1rem;display:table">Contact</div>
+      <h2 class="section-title animate-on-scroll">Let's Work Together</h2>
+      <p class="section-sub animate-on-scroll" style="margin-left:auto;margin-right:auto;text-align:center">Ready to take your business to the next level? Reach out and let's discuss how I can help you save time, look professional, and grow efficiently.</p>
+      <div class="contact-cards animate-on-scroll">
+        <a href="mailto:jlmutalib.ict@gmail.com" class="contact-card">
+          <div class="contact-card-icon">📧</div>
+          <h4>Email Me</h4>
+          <p>jlmutalib.ict@gmail.com</p>
+        </a>
+        <a href="https://www.facebook.com/share/18HmYtxSZV/?mibextid=wwXIfr" target="_blank" class="contact-card">
+          <div class="contact-card-icon">👤</div>
+          <h4>Facebook</h4>
+          <p>Jallil Mutalib</p>
+        </a>
+      </div>
+      <a href="mailto:jlmutalib.ict@gmail.com" class="contact-cta animate-on-scroll">
+        ✉️ Send Me a Message
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="logo-foot">JM.</div>
+    <p>© 2026 <strong style="color:#94a3b8">Jallil Mutalib</strong> · Executive Assistant · AI Automation · Automation Specialist · Graphic Designer · Video Editor</p>
+    <p style="margin-top:.35rem">Built with passion, dedication, and a drive for excellence 🚀</p>
+  </div>
+</footer>
+
+<!-- CHAT BUBBLE -->
+<div id="chat-bubble">
+  <div class="chat-notif">1</div>
+  <button class="chat-btn" onclick="toggleChat()" title="Chat with Jallil's AI Assistant">💬</button>
+</div>
+
+<!-- CHAT PANEL -->
+<div id="chat-panel">
+  <div class="chat-header">
+    <div class="chat-avatar">
+      <img src="https://i.imgur.com/placeholder.jpg" alt="JM" onerror="this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#3b82f6,#6366f1);font-weight:800;font-size:.9rem;color:#fff\'>JM</div>'"/>
+    </div>
+    <div class="chat-header-info">
+      <h4>Jallil's AI Assistant</h4>
+      <small>Online now — ask me anything</small>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-messages" id="chat-messages">
+    <div class="msg bot">
+      <div class="msg-bubble">👋 Hi there! I'm Jallil's AI assistant. Ask me anything about his skills, services, experience, or how he can help your business grow. What would you like to know?</div>
+      <div class="msg-time">Just now</div>
+    </div>
+  </div>
+  <div class="chat-suggestions" id="chat-suggestions">
+    <button class="suggestion-chip" onclick="sendSuggestion('What services does Jallil offer?')">Services</button>
+    <button class="suggestion-chip" onclick="sendSuggestion('What are Jallil\'s skills?')">Skills</button>
+    <button class="suggestion-chip" onclick="sendSuggestion('How can I hire Jallil?')">Hire him</button>
+    <button class="suggestion-chip" onclick="sendSuggestion('Tell me about Jallil\'s experience with AI automation')">AI Automation</button>
+  </div>
+  <div class="chat-input-area">
+    <input type="text" id="chat-input" placeholder="Ask anything about Jallil..." onkeydown="if(event.key==='Enter')sendMessage()"/>
+    <button class="chat-send" onclick="sendMessage()">
+      <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+/* ── NAVBAR SCROLL ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50)
+})
+
+/* ── SCROLL ANIMATIONS ── */
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})
+},{threshold:.12})
+document.querySelectorAll('.animate-on-scroll').forEach(el=>observer.observe(el))
+
+/* ── PARTICLES ── */
+const pCont=document.getElementById('particles')
+for(let i=0;i<18;i++){
+  const p=document.createElement('div')
+  p.className='particle'
+  const s=Math.random()*4+2
+  p.style.cssText=`width:${s}px;height:${s}px;background:rgba(${Math.random()>0.5?'59,130,246':'99,102,241'},.${Math.floor(Math.random()*3+1)});left:${Math.random()*100}%;top:${Math.random()*100}%;animation-duration:${Math.random()*10+8}s;animation-delay:${Math.random()*5}s`
+  pCont.appendChild(p)
+}
+
+/* ── PHOTO: replace with your actual hosted image URL ── */
+// To use your photo, host it on GitHub Pages, Imgur, or any image host
+// Then replace the src below with your actual URL
+document.getElementById('profileImg').src = 'YOUR_PHOTO_URL_HERE'
+
+/* ── CHAT ── */
+const SYSTEM=`You are an AI assistant for Jallil Mutalib's professional portfolio website. Answer questions about Jallil in a warm, professional, and confident tone to help potential clients understand his value and consider hiring him.
+
+About Jallil Mutalib:
+- Full Name: Jallil Mutalib | Location: Philippines (GMT+8)
+- Professions: Executive Virtual Assistant, AI Automation Specialist, Graphic Designer, Video Editor
+- Bio: Creative, organized, growth-driven professional. Detail-oriented. Passionate about digital projects, communication, technology, and design. Interests: web development, graphic design, photography, running.
+
+Services:
+1. Executive & Virtual Assistance - Calendar/schedule management, email management & follow-ups, task coordination & prioritization, client communication support, document preparation & organization, daily operational assistance
+2. AI Automation & Integration - Workflow automation setup, AI tool integration (ChatGPT, Zapier, Make.com), process optimization, automated email & CRM workflows, reporting & data automation, AI-powered content pipelines
+3. Graphic Design - Social media graphics, brand identity design, presentation & pitch deck design, marketing materials, portfolio & layout design, digital content creation
+4. Video Editing - Short-form content (Reels, TikTok, Shorts), long-form YouTube editing, captions & subtitles, transitions & motion effects, thumbnail design, content repurposing
+
+Skills: Task/schedule management, workflow coordination, attention to detail, executive support, client communication, HTML/CSS, React basics, GitHub, Replit, website building, graphic design, visual storytelling, video editing, fast learner, problem solver, adaptable, self-motivated
+
+Tools: Canva, Gmail, Zoom, Slack, Loom, Notion, Asana, Calendly, Google Calendar, Google Sheets, Google Workspace, Google Docs, Zapier, Make.com
+
+Case Study: Grew a local café's Instagram from 200 to 800 followers in 4 weeks. Engagement jumped from 2% to 15% (650% increase). Giveaway post reached 5,000+ accounts and brought 30+ new walk-in customers.
+
+Contact: jlmutalib.ict@gmail.com | Facebook: https://www.facebook.com/share/18HmYtxSZV/?mibextid=wwXIfr
+
+Keep answers concise (2-4 sentences), professional, and helpful. If asked about pricing, say rates depend on scope and encourage them to contact Jallil directly via email or Facebook. Always encourage reaching out.`
+
+let chatOpen=false,notifDismissed=false,msgHistory=[]
+
+function toggleChat(){
+  chatOpen=!chatOpen
+  document.getElementById('chat-panel').classList.toggle('open',chatOpen)
+  if(chatOpen&&!notifDismissed){document.querySelector('.chat-notif').style.display='none';notifDismissed=true}
+}
+function getTime(){return new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}
+function appendMsg(text,role){
+  const m=document.getElementById('chat-messages')
+  const d=document.createElement('div')
+  d.className='msg '+role
+  d.innerHTML=`<div class="msg-bubble">${text}</div><div class="msg-time">${getTime()}</div>`
+  m.appendChild(d);m.scrollTop=m.scrollHeight
+}
+function showTyping(){
+  const m=document.getElementById('chat-messages')
+  const t=document.createElement('div')
+  t.className='typing';t.id='typing-indicator'
+  t.innerHTML='<span></span><span></span><span></span>'
+  m.appendChild(t);m.scrollTop=m.scrollHeight
+}
+function removeTyping(){const t=document.getElementById('typing-indicator');if(t)t.remove()}
+async function sendMessage(){
+  const inp=document.getElementById('chat-input')
+  const text=inp.value.trim();if(!text)return
+  inp.value=''
+  document.getElementById('chat-suggestions').style.display='none'
+  appendMsg(text,'user')
+  msgHistory.push({role:'user',content:text})
+  showTyping()
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYSTEM,messages:msgHistory})
+    })
+    const data=await res.json()
+    removeTyping()
+    const reply=data.content&&data.content[0]&&data.content[0].text?data.content[0].text:"I couldn't get a response right now. Please try again!"
+    appendMsg(reply,'bot')
+    msgHistory.push({role:'assistant',content:reply})
+  }catch(e){
+    removeTyping()
+    appendMsg("Sorry, I'm having trouble connecting. Please email Jallil directly at jlmutalib.ict@gmail.com!",'bot')
+  }
+}
+function sendSuggestion(text){document.getElementById('chat-input').value=text;sendMessage()}
+function openDesignModal(){document.getElementById('designModal').style.display='block';document.body.style.overflow='hidden'}
+function closeDesignModal(e){if(!e||e.target===document.getElementById('designModal')){document.getElementById('designModal').style.display='none';document.body.style.overflow=''}}
+</script>
+</body>
+</html>
